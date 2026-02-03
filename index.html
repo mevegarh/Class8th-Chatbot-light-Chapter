@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Class 8 Science Light Chatbot</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#eaf0f6;
+  margin:0;
+  padding:0;
+}
+
+.box{
+  width:420px;
+  max-width:100%;
+  height:600px;
+  max-height:100vh;
+  background:white;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,.2);
+  overflow:hidden;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+}
+
+.header{
+  background:#1e90ff;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.chat{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+  background:#f8f9fa;
+}
+
+.msg{
+  margin:8px 0;
+  padding:10px;
+  border-radius:10px;
+  max-width:90%;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.user{
+  background:#1e90ff;
+  color:white;
+  margin-left:auto;
+}
+
+.bot{
+  background:#ddd;
+  color:black;
+}
+
+.input{
+  display:flex;
+  border-top:1px solid #ccc;
+}
+
+input{
+  flex:1;
+  padding:12px;
+  font-size:14px;
+  border:none;
+  outline:none;
+}
+
+button{
+  padding:12px 16px;
+  border:none;
+  background:#1e90ff;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+}
+
+/* 📱 Mobile specific */
+@media (max-width:600px){
+  .box{
+    width:100%;
+    height:100vh;
+    border-radius:0;
+  }
+
+  .header{
+    font-size:15px;
+  }
+
+  input, button{
+    font-size:15px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+<div class="box">
+  <div class="header">📘 Class 8 – Light Chapter Bot</div>
+
+  <div class="chat" id="chat">
+    <div class="msg bot">
+      Ask any question from <b>Chapter 13 – Light</b><br>
+      (NCERT Based)
+    </div>
+  </div>
+
+  <div class="input">
+    <input id="q" placeholder="Type your question...">
+    <button onclick="ask()">Ask</button>
+  </div>
+</div>
+
+<script>
+const data = [
+{
+  k:["what is light","define light"],
+  a:`Light is a form of energy that enables us to see objects.
+Objects become visible when light reflected from them enters our eyes.`
+},
+
+{
+k:["dark room","see objects"],
+a:`In a dark room one cannot see objects because light does not reach our eyes.
+Objects outside the room are visible as light reflected from them reaches our eyes.`
+},
+{
+k:["regular","diffused reflection"],
+a:`Regular reflection occurs on smooth surfaces and reflected rays are parallel.
+Diffused reflection occurs on rough surfaces and reflected rays are not parallel.
+Diffused reflection does not violate laws of reflection.`
+},
+{
+k:["laws of reflection"],
+a:`1. Angle of incidence equals angle of reflection.
+2. Incident ray, reflected ray and normal lie in the same plane.`
+},
+{
+k:["polished wooden"],
+a:`Polished wooden table gives regular reflection because the surface is smooth.`
+},
+{
+k:["chalk powder"],
+a:`Chalk powder causes diffused reflection because its surface is uneven.`
+},
+{
+k:["mirror"],
+a:`Mirror produces regular reflection due to smooth and shiny surface.`
+},
+{
+k:["plane mirror image"],
+a:`Image formed by a plane mirror is virtual, erect and of the same size as the object.`
+},
+{
+k:["kaleidoscope"],
+a:`A kaleidoscope is made of three plane mirrors arranged in a triangular prism
+inside a cardboard tube with glass pieces at one end.`
+},
+{
+k:["laser torch"],
+a:`Laser light is very intense and can damage the retina permanently.
+Therefore, it should not be used for eye experiments.`
+},
+{
+k:["care of eyes"],
+a:`Do not read in dim or very bright light.
+Wash eyes regularly.
+Never rub eyes.
+Keep proper distance while reading.
+Consult doctor if needed.`
+},
+{
+k:["angle of incidence","90"],
+a:`Angle of incidence is 45 degrees.`
+},
+{
+k:["parallel plane mirrors"],
+a:`Infinite images are formed between two parallel plane mirrors.`
+},
+{
+k:["night birds"],
+a:`Night birds have more rods and fewer cones in their eyes.`
+}
+];
+
+function ask(){
+  let input=document.getElementById("q");
+  let text=input.value.toLowerCase();
+  if(!text) return;
+
+  add(text,"user");
+  input.value="";
+
+  let ans="❌ Question not found in Chapter 13 PDF.";
+
+  data.forEach(d=>{
+    d.k.forEach(key=>{
+      if(text.includes(key)){
+        ans=d.a;
+      }
+    });
+  });
+
+  setTimeout(()=>add(ans,"bot"),400);
+}
+
+function add(t,type){
+  let c=document.getElementById("chat");
+  let d=document.createElement("div");
+  d.className="msg "+type;
+  d.innerText=t;
+  c.appendChild(d);
+  c.scrollTop=c.scrollHeight;
+}
+</script>
+</body>
+</html>
